@@ -8,14 +8,14 @@ Route::middleware('guest')->group(function () {
     Volt::route('login', 'auth.login')
         ->name('login');
 
-    //  Volt::route('register', 'auth.register')  // disabling it, no need for registration, only one user
-        //  ->name('register');
+    Volt::route('register', 'auth.register')  // disabling it, no need for registration, only one user
+       ->name('register');
 
     Volt::route('forgot-password', 'auth.forgot-password')
         ->name('password.request');
 
     Volt::route('reset-password/{token}', 'auth.reset-password')
-        ->name('password.reset');
+        ->name('password.reset'); 
 
 });
 

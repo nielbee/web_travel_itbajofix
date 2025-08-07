@@ -19,7 +19,7 @@ return new class extends Migration
            $table->string('photo2')->nullable();
            $table->string('photo3')->nullable();
            $table->string('default_message');
-           $table->integer('price');
+           $table->bigInteger('price')->default(0);
        });
     }
 

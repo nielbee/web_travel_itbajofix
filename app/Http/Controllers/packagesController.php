@@ -33,7 +33,6 @@ class packagesController extends Controller
     {
         $package = packagesModel::findOrFail($id);
         $package->delete();
-
         return redirect()->route('packages')->with('success', 'Package deleted successfully.');
     }
 

@@ -25,11 +25,18 @@
             <td class="px-4 py-2">
                 <p>{{ $p->description }}</p>
             </td>
+
+            <td>
+                <button wire:click="openModalImage" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                    show image
+                </button>
+            </td>
+
             <td class="px-4 py-2">
                 <p>Rp. {{ $p->price }}</p>
             </td>
             <td class="px-4 py-2">
-                <a href='/packages/delete/{{ $p->id }}'>
+                <a href='/packages/delete/{{ $p->id }}' onclick='return confirmLink()'>
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600 hover:text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3" />
                      </svg>
@@ -50,27 +57,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- modal begin -->
 <div 
     x-data="{ open: @entangle('showModal') }"
@@ -78,12 +64,11 @@
     class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
 >
 
-
     <!-- Modal content -->
     <div @click.away="open = false" class="bg-white dark:bg-zinc-900 p-6 rounded shadow max-w-lg w-full">
         
         <button 
-            @click="open = false" 
+            @click = "open = false" 
             c class="px-2 py-2 rounded bg-red-600 hover:bg-red-700 text-white font-semibold shadow transition"
         >
             X
@@ -150,3 +135,11 @@
 @endif
 
 </div>
+
+
+
+<script>
+  function confirmLink() {
+    return confirm("Are you sure you want to delete this package?");
+  }
+</script>

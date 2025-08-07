@@ -16,7 +16,8 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="book-open-text" :href="route('packages')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Packages') }}</flux:navlist.item>
+                    <flux:navlist.item icon="book-open-text" :href="route('packages')" :current="request()->routeIs('packages')" wire:navigate>{{ __('Travel Packages') }}</flux:navlist.item>
+                    <flux:navlist.item icon="map-pin" :href="route('vehicles')" :current="request()->routeIs('vehicles')" wire:navigate>{{ __('Vehicles') }}</flux:navlist.item>
                 </flux:navlist.group>
 
             </flux:navlist>
