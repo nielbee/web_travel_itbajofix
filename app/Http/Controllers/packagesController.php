@@ -40,4 +40,11 @@ class packagesController extends Controller
     {
         return response()->json(packagesModel::all());
     }
+
+    public function jsonDataDetail($id)
+    {
+        $package = packagesModel::findOrFail($id);
+        return response()->json($package);
+        
+    }
 }

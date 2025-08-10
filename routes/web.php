@@ -7,11 +7,7 @@ use App\Http\Controllers\packagesController;
 use App\Http\Controllers\vehicleController;
 use App\Livewire\VehicleApp;
 
-//for api
-Route::get('api/list/packages', [packagesController::class,'jsonData']); //livewire app to show add package view
-Route::get('api/list/vehicles', [vehicleController::class,'jsonData']); //livewire app to show add vehicle view.
 
-// end of api
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -19,9 +15,6 @@ Route::get('/', function () {
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-
-
-
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -37,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('vehicles/save', [vehicleController::class,'save'])->name('vehicles.save'); //save vehicle
     Route::get('vehicles/toogleavailability/{id}',[vehicleController::class,'toogleAvailability'])->name('vehicles.toggleavailability'); //toggle availability of vehicle
     Route::get('vehicles/delete/{id}', [vehicleController::class,'delete'])->name('vehicles.delete'); //delete vehicle
+    Route::get('vehicles/payment/preview/{id}', [vehicleController::class,'paymentPreview'])->name('vehicles.payment.preview'); //preview payment for vehicle
 
     // travel packages routes
     Route::get('packages', AddPackage::class)->name('packages'); //livewire app to show add package view

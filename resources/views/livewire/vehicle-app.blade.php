@@ -50,6 +50,15 @@
                     >
                         Toggle Availability
                     </a>
+                    <td class="px-4 py-2">
+                         <a  href='vehicles/payment/preview/{{ $v->plate_number }}' target="_blank" class    
+                        ="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 transition"
+                    >
+                        BUY
+                    </a>
+                    </td>
+                   
+
                 </td>
                 <td class="px-4 py-2">
                      <a href='vehicles/delete/{{ $v->plate_number }}' onclick= "return confirmLink()"     
@@ -63,15 +72,6 @@
         @endforeach
     </tbody>
 </table>
-
-{{-- 
-@foreach ($vehicles as $v )
-    <p>{{$v->brand}} - {{$v->model}}  Rp. {{$v->price}}</p>
-    <hr>
-@endforeach --}}
-
-
-
 
 
 <!-- modal begin -->

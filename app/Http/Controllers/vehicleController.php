@@ -46,7 +46,27 @@ class vehicleController extends Controller
 
     public function jsonData()
     {
-        return response()->json(vehicleModel::all());
+        $vehicle = vehicleModel::all();
+
+        $data = $vehicle->toArray();
+        foreach ($data as &$item) {
+            $item['pict1'] = asset('storage/' . $item['pict1']);
+            $item['pict2'] = asset('storage/' . $item['pict2']);
+            $item['pict3'] = asset('storage/' . $item['pict3']);
+        }
+        return response()->json($data);
+    }
+
+    public function jsonDataDetail($id)
+    {
+        $vehicle = vehicleModel::findOrFail($id);
+        $data = $vehicle->toArray();
+        
+        $data['pict1'] = asset('storage/' . $data['pict1']);
+        $data['pict2'] = asset('storage/' . $data['pict2']);
+        $data['pict3'] = asset('storage/' . $data['pict3']);
+        
+        return response()->json($data);
     }
 
     public function toogleAvailability($id)
@@ -65,6 +85,12 @@ class vehicleController extends Controller
         $vehicle->delete();
         session()->flash('message', 'Vehicle deleted successfully!');
         return redirect()->route('vehicles');
+    }
+
+    public function paymentPreview($id){
+        return view('payment/vehicle',[
+            'vehicle' => vehicleModel::findOrFail($id)
+        ]);
     }
 
 
