@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\packagesModel;
+use Illuminate\Support\Facades\Storage;
 class packagesController extends Controller
 {
     public function index()
@@ -32,6 +33,11 @@ class packagesController extends Controller
     public function delete($id)
     {
         $package = packagesModel::findOrFail($id);
+
+        Storage::disk('public')->delete($package->photo1);
+        Storage::disk('public')->delete($package->photo2);
+        Storage::disk('public')->delete($package->photo3);
+
         $package->delete();
         return redirect()->route('packages')->with('success', 'Package deleted successfully.');
     }

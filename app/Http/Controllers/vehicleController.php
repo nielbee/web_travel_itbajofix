@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use App\Models\vehicleModel;
+use Illuminate\Support\Facades\Storage;
 
 class vehicleController extends Controller
 {
@@ -45,17 +46,21 @@ class vehicleController extends Controller
     }
 
     public function jsonData()
-    {
-        $vehicle = vehicleModel::all();
+{
+    // Paginate 10 items per page
+    $vehicles = vehicleModel::paginate(10);
 
-        $data = $vehicle->toArray();
-        foreach ($data as &$item) {
-            $item['pict1'] = asset('storage/' . $item['pict1']);
-            $item['pict2'] = asset('storage/' . $item['pict2']);
-            $item['pict3'] = asset('storage/' . $item['pict3']);
-        }
-        return response()->json($data);
-    }
+    // Transform the paginated items collection
+    $vehicles->getCollection()->transform(function ($item) {
+        $item->pict1 = asset('storage/' . $item->pict1);
+        $item->pict2 = asset('storage/' . $item->pict2);
+        $item->pict3 = asset('storage/' . $item->pict3);
+        return $item;
+    });
+
+    // Return paginated response as JSON (includes pagination metadata)
+    return response()->json($vehicles);
+}
 
     public function jsonDataDetail($id)
     {
@@ -82,6 +87,10 @@ class vehicleController extends Controller
     public function delete($id)
     {
         $vehicle = vehicleModel::findOrFail($id);
+        Storage::disk('public')->delete($vehicle->pict1);
+        Storage::disk('public')->delete($vehicle->pict2);
+        Storage::disk('public')->delete($vehicle->pict3);
+
         $vehicle->delete();
         session()->flash('message', 'Vehicle deleted successfully!');
         return redirect()->route('vehicles');
